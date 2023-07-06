@@ -195,8 +195,6 @@ void addStaticContactConstraints(Context* context)
       Bnext_ecart->y = 1/(pow(n_rebond->x,2) + pow(n_rebond->y,2)) * (-n_rebond->y * Bprime_next_ecart->x + n_rebond->x * Bprime_next_ecart->y);
       (p+i)->position = (p+i)->next_pos;
       (p+i)->next_pos=*vect_sum(scalar_mult(1,Bnext_ecart),pcontact);
-      printf("\n (%d) pos: %f %f\n npos: %f %f\n normale: %f %f\n", j , (p+i)->position.x, (p+i)->position.y,(p+i)->next_pos.x,(p+i)->next_pos.y,n_rebond->x,n_rebond->y);
-
       }
     }
   }
