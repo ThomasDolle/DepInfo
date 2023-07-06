@@ -195,9 +195,9 @@ void addStaticContactConstraints(Context* context)
       Bnext_ecart->y = -1/(pow(n_rebond->x,2) + pow(n_rebond->y,2)) * (-n_rebond->y * Bprime_next_ecart->x + n_rebond->x * Bprime_next_ecart->y);
       (p+i)->position = (p+i)->next_pos;
       (p+i)->next_pos=*vect_sum(scalar_mult(1,Bnext_ecart),pcontact);
-      Vec2* ecb = normalisation(ecart);
-      Vec2* affec = normalisation(Bprime_ecart);
-      Vec2* affnex = normalisation(Bprime_next_ecart);
+      //Vec2* ecb = normalisation(ecart);
+      //Vec2* affec = normalisation(Bprime_ecart);
+      //Vec2* affnex = normalisation(Bprime_next_ecart);
       //printf("\n ecartbrut_av : %f %f \necart_av : %f %f\n pcontact : %f %f\n normale : %f %f \n ecart_ap :  %f %f\n",ecb->x,ecb->y,affec->x,affec->y,pcontact->x,pcontact->y,n_rebond->x, n_rebond->y, affnex->x,affnex->y);
       }
     }
