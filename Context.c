@@ -183,18 +183,22 @@ void addStaticContactConstraints(Context* context)
       //calcul du rebond que j'ai fait moi même car je n'arrive pas à implémenter les equations
       //je calcule un vecteur symétrique par rapport à la normale en changeant de base
       //je n'ai pas pris le temps d'implémenter une multiplication matricielle
-      Vec2* ecart = vect_sub(&(p+i)->position,pcontact);
+      Vec2* ecart = vect_sub(&(p+i)->next_pos,pcontact);
       Vec2* Bprime_ecart = initialise_vec2();
-      Bprime_ecart->x = n_rebond->x * ecart->x - n_rebond->y * ecart->y;
-      Bprime_ecart->y = n_rebond->y * ecart->x + n_rebond->x * ecart->y;
+      Bprime_ecart->x = n_rebond->x * ecart->x + n_rebond->y * ecart->y;
+      Bprime_ecart->y = n_rebond->y * ecart->x - n_rebond->x * ecart->y;
       Vec2* Bprime_next_ecart = initialise_vec2();
       Bprime_next_ecart->x = - Bprime_ecart->x;
       Bprime_next_ecart->y = Bprime_ecart->y;
       Vec2* Bnext_ecart = initialise_vec2();
-      Bnext_ecart->x = 1/(pow(n_rebond->x,2) + pow(n_rebond->y,2)) * (n_rebond->x * Bprime_next_ecart->x + n_rebond->y * Bprime_next_ecart->y);
-      Bnext_ecart->y = 1/(pow(n_rebond->x,2) + pow(n_rebond->y,2)) * (-n_rebond->y * Bprime_next_ecart->x + n_rebond->x * Bprime_next_ecart->y);
+      Bnext_ecart->x = -1/(pow(n_rebond->x,2) + pow(n_rebond->y,2)) * (-n_rebond->x * Bprime_next_ecart->x + -n_rebond->y * Bprime_next_ecart->y);
+      Bnext_ecart->y = -1/(pow(n_rebond->x,2) + pow(n_rebond->y,2)) * (-n_rebond->y * Bprime_next_ecart->x + n_rebond->x * Bprime_next_ecart->y);
       (p+i)->position = (p+i)->next_pos;
       (p+i)->next_pos=*vect_sum(scalar_mult(1,Bnext_ecart),pcontact);
+      Vec2* ecb = normalisation(ecart);
+      Vec2* affec = normalisation(Bprime_ecart);
+      Vec2* affnex = normalisation(Bprime_next_ecart);
+      //printf("\n ecartbrut_av : %f %f \necart_av : %f %f\n pcontact : %f %f\n normale : %f %f \n ecart_ap :  %f %f\n",ecb->x,ecb->y,affec->x,affec->y,pcontact->x,pcontact->y,n_rebond->x, n_rebond->y, affnex->x,affnex->y);
       }
     }
   }
